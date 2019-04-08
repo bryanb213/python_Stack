@@ -1,0 +1,43 @@
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        *{
+            margin: 0px auto;
+            vertical-align: top;
+        }
+        .wrapper{
+            width: 980px;
+        }
+    </style>
+    <title>Show Info</title>
+</head>
+<body>
+    <div class="wrapper">
+       <h1>All Shows</h1>
+       <br><br>
+       <table>
+           <tr>
+               <th>ID</th>
+               <th>Title</th>
+               <th>Network</th>
+               <th>Release Date</th>
+               <th>Action</th>
+               
+           </tr>
+           {%for i in shows%}
+           <tr>
+               <td>{{i.id}}</td>
+               <td>{{i.title}}</td>
+               <td>{{i.network}}</td>
+               <td>{{i.date}}</td>
+               <td><a href="/shows/{{i.id}}/edit">Edit</a> <a href="/shows/{{i.id}}">Show</a><a href="/shows/{{i.id}}/destroy">Delete</a></td>
+           </tr>
+           {%endfor%}
+       </table>
+       <br>
+       <a href="/shows/new">Add a New Show</a>
+    </div>
+</body>
+</html>

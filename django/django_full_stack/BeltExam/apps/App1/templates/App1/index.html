@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Belt Exam</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+    <style>
+        .col{
+            width: 500px;
+            vertical-align: top;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Login or Register at your own risk!</h1>
+    <div class="col">
+        <fieldset>
+            <legend>Register</legend>
+            <form action="/register" method="POST">
+                {% csrf_token %}
+                <p><label>First Name</label></p><input type="text" name="first_name">
+                <p><label>Last Name</label></p><input type="text" name="last_name">
+                <p><label>E-mail</label></p><input type="text" name="email">
+                <p><label>Password</label></p><input type="password" name="password">
+                <p><label>Confirm PW</label></p><input type="password" name="password_confirm">
+                <p><Label>Date of Birth:</Label></p><input type="date" name="dob">
+                <p><button type="submit">Register</button></p>
+            </form>
+        </fieldset>
+    </div>
+
+    <div class="col">
+        <fieldset>
+            <legend>Login</legend>
+            <form action="/login" method="POST">
+                {% csrf_token %}
+                <p><label>Email</label></p><input type="text" name="email">
+                <p><label>Password</label></p><input type="password" name="password">
+                <p><button type="submit">Login</button></p>
+            </form>
+        </fieldset>
+    </div>
+
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

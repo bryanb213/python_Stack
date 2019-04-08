@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Belt Exam</title>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+            vertical-align: top;
+        }
+        #header a {
+            margin-left: 650px;
+            display: inline;
+        }
+
+        #header p {
+            display: inline;
+            margin-left: 30px;
+        }
+
+        #leftside {
+            display: inline-block;
+            width: 400px;
+            height: auto;
+            padding: 20px;
+        }
+
+        #leftside fieldset {
+            margin-top: 20px;
+            height: 440px;
+            width: 350px;
+            padding: 10px;
+        }
+
+        #rightside{
+            display: inline-block;
+            width: 400px;
+            height: auto;
+            padding: 20px;
+        }
+        #rightside fieldset{
+            margin-top: 20px;
+            margin-left: 50px;
+            height: 200px;
+            width: 350px;
+
+        }
+        #rightside form{
+            margin-top: 40px;
+            margin-left: 50px;
+        }
+        .content{
+            margin-bottom: 10px;
+            padding: 5px;
+            border: solid rgb(77, 76, 76) 1px;
+        }
+        .quote{
+            height: 50px;
+        }
+        .bottomleft{
+            display: inline-block;
+            width: 200px;
+        }
+        .bottomright{
+            display: inline-block;
+        }
+        .link{
+            display: inline-block;
+        }
+        .delete{
+            display: inline-block;
+        }
+       #header #edit{
+            margin-left: 800px;
+        }
+
+
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <p>Welcome, {{user.first_name}}!</p>
+        <a href="/logout">logout</a>
+        <a id="edit" href="/editpage/{{user.id}}">Edit Account</a>
+    </div>
+    <div id="leftside">
+        <fieldset>
+            <legend>Quotable Quotes</legend>
+            {% for quote in all_quotes reversed %}
+            <div class="content">
+                <div class="quote">
+                    {{quote.quoted_by}}: {{quote.quote}}
+                    <div class="bottomleft">
+                        <small>Posted by: <a href="/users/{{quote.uploaded_by.id}}">{{quote.uploaded_by.first_name}}</a></small>
+                    </div>
+                    <div class="bottomright">
+                        <div class="link">
+                            <form action="add_favorite" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" name="quote_id" value="{{quote.id}}">
+                                <input type="submit" value="Add to list">
+                            </form>
+                        </div>
+                        {% if quote.uploaded_by.id == request.session.user_id %}
+                        <div class="delete">
+                            <form action="/delete/{{quote.id}}" method="POST">
+                                {% csrf_token %}
+                                <!-- <input type="hidden" name="quote_id" value={{quote.id}}> -->
+                                <button type="submit">Delete</button>
+                            </form>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </fieldset>
+    </div>
+    <div id="rightside">
+        <fieldset>
+            <legend>Favorites</legend>
+            {% for favorite in quote.favorites.all %}
+            <div class="content">
+                <div class="quote">
+                    {{favorite.quoted_by.first_name}}: {{favorite.quote}}
+                    <div class="bottomleft">
+            {% endfor %}
+        </fieldset>
+        <form action="/new_quote" method="POST">
+            {% csrf_token %}
+            <h3>Contribute a quote:</h3>
+            <br>
+            <label>Quoted by:</label>
+            <input type="text" name="quoted_by" required>
+            <br><br>
+            <label>Message:</label>
+            <textarea name="quote" rows="05" cols="37" required></textarea>
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</body>
+
+</html>

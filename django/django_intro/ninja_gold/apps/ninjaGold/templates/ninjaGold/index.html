@@ -1,0 +1,75 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        #activities{
+            margin-top: 50px; 
+            width: 100%;
+            margin: 0 auto;
+            height: 140px;
+            overflow-y: scroll;
+            border: 2px solid black;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background-color: darkcyan;
+            text-align: center;
+            display: inline-block;
+            margin:  0px 50px 40px 100px;
+        }
+        .red{
+            color: red;
+        }
+        .green{
+            color: green;
+        }
+    </style>
+</head>
+<body>
+        <h1>Your Gold: {{request.session.gold}}</h1>
+    <div class="box">
+        <h2>Farm:</h2>
+        <form action="/process_money" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="building" value="farm" />
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="box">
+        <h2>Cave:</h2>
+        <form action="/process_money" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="building" value="cave" />
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="box">
+        <h2>House:</h2>
+        <form action="/process_money" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="building" value="house" />
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    <div class="box">
+        <h2>Casino:</h2>
+        <form action="/process_money" method="post">
+            {%csrf_token%}
+            <input type="hidden" name="building" value="casino" />
+            <input type="submit" value="Find Gold!"/>
+        </form>
+    </div>
+    Activities:
+    <div id="activities">
+        {%for item in request.session.activity%}
+        {{item | safe}}
+        {%endfor%}
+    </div>
+    <form action="/reset" method="post">
+        {%csrf_token%}
+        <button><a href="/clear">start over</a></button>
+</body>
+</html>

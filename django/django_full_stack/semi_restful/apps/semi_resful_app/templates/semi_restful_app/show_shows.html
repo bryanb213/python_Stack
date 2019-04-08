@@ -1,0 +1,33 @@
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        *{
+            margin: 0px auto;
+            vertical-align: top;
+        }
+        .wrapper{
+            width: 980px;
+        }
+    </style>
+    <title>Show Info</title>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="/shows">Go Back</a>
+       <h1>TV Show {{shows.id}}</h1>
+       <br>
+       Title: {{shows.title}}
+       <br>
+       Network: {{shows.network}}
+       <br>
+       Relase Date: {{shows.date}}
+       <br>
+       Descrtiption: {{shows.desc}}
+       <br><br><br><br><br>
+       Last Updated: {{show.updated_at}}
+       <a href="/shows/{{shows.id}}/edit">Edit</a> <a href="/shows/{{shows.id}}/delete">Delete</a>
+    </div>
+</body>
+</html>

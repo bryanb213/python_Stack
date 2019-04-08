@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Users</title>
+</head>
+<body>
+    <h1>All Users</h1>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        {%for i in users%}
+        <tr>
+            <td>{{i['id']}}</td>
+            <td>{{i['first_name']}}</td>
+            <td>{{i['email']}}</td>
+            <td>{{i['created_at']}}</td>
+            <td></td>
+        </tr>
+        {%endfor%}
+    </table>
+    <form action="/users/new" method="post">
+        <a href="/users/new">Add a New User</a>
+    </form>
+</body>
+</html>

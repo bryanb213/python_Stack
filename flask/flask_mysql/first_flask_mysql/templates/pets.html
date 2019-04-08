@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        table{
+            padding-left: 45%;
+        }
+        .a{
+            text-align: center;
+        }
+        .b{
+            text-align: center;
+        }
+    </style>
+    <title>Pets</title>
+</head>
+<body>
+    <div class="a">
+        <h1>All The Pets!</h1>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+            {%for i in pets%}
+            <tr>
+                <td>{{i['id']}}</td>
+                <td>{{i['name']}}</td>
+                <td>{{i['type']}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+    </div>
+    <hr>
+    <div class="b">
+        <h1>Add More Pets</h1>
+        <form action="/make_pets" method="post">
+            Name: <input type="text" name="pname">
+            Type: <input type="text" name="tname">
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        h1{
+            margin-left: 50px;
+        }
+        div{
+            display: inline-block;
+            
+        }
+        .hi{
+            display: inline-block;
+            padding-left: 400px;
+        }
+        table, td{
+            border: 1px solid black;
+        }
+    </style>
+    <title>Books/Authors</title>
+</head>
+<body>
+    <div>
+    <h1>Add a Book</h1>
+    <form action="/addbook" method="POST">
+    {% csrf_token %}
+        Title: <input type="text" name="book"> 
+        <br>
+        Description:  <br>     
+        <textarea name="desc" cols="30" rows="10"></textarea>
+        <br>
+        <input type="submit">
+    </form>
+    </div>
+    <div class="hi">
+          <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+            {%for i in books%}
+            <tr>
+                <td>{{i.id}}</td>
+                <td>{{i.title}}</td>
+                <td><a href="/books/{{i.id}}">View</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>

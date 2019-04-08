@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+        #box{
+            border: 1px solid black;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    
+    <div>
+            Hey {{request.session.id}}{{user.first_name}}
+            <a href="/logout">Sign out</a>
+    </div>
+    <div>
+
+        <div id="box">
+
+            {%for authors in quotes%}
+            <p>Author: {{authors.author}}
+                Quote: '{{authors.quote}}'
+                Posted By: <a href="{{user.id}}">{{authors.user.first_name}} {{authors.user.last_name}}</a>
+                {{authors.created_at}}
+
+            </p>{%if user.id == request.session.id %}
+            <form action="/delete/quote/{{authors.id}}" method="get">
+                    {%csrf_token%}
+                <button type="submit">Delete</button>
+            </form>
+            {%endif%}
+            {% endfor %}
+
+
+        </div>
+
+
+        <h3>Post a message</h3>
+        <form action="/add_message" method="post">
+            {% csrf_token %}
+            Author:
+            <br>
+            <input type="text" name="author">
+            <br>
+            <textarea name="quote" cols="30" rows="10"></textarea>
+            <br>
+            <input type="submit" value="Post!">
+        </form>
+
+    </div>
+
+
+
+
+</body>
+</html>

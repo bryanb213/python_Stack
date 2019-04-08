@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Feed</title>
+    
+    <style>
+        .header, h1, a, .logout, form{
+            display: inline-block;
+        }
+        .edit{
+            margin-left: 420px;
+        }
+        .post_message{
+            border: 1px solid black;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <h1>Welcome, {{user.first_name}} {{user.last_name}}</h1>
+    <a class='edit' href="/edit_account/{{user.id}}">Edit Account Information</a>
+    <form action="/logout" method="get">
+    <input class='logout' type="submit" value="Sign out">
+    </form>
+    <br><br><br><br>
+</div>
+<div>
+    <form action='/add_quote' method="POST">
+        {% csrf_token %} 
+        <label>Post a Quote!</label>
+        <br><br>
+        <label>Author</label>
+        <br>
+        <input type="text" name="author">
+        <br><br>
+        <textarea name="quote" cols="30" rows="10" placeholder="Write your quote here..."></textarea>
+        <br>
+        <button type="submit">Post!</button>
+        <br><br>
+    </form>   
+</div>
+
+<p>Quotes</p>
+<div class="post_message">
+    {% for message in all_messages reversed %}
+    {{ author }} {{ message.user.last_name }} Posted - {{message.created_at}}
+    <br>
+    {{message.message}} 
+    <br>
+    <form action="/delete/message/{{message.id}}" method="GET">
+        <button type="submit">Delete</button>
+    </form>
+    <br>
+    {% for comment in message.comments.all %}
+    <small>{{comment.user.first_name}} {{comment.user.last_name}} commented- {{comment.created_at}}</small>
+    <br>
+    <small>{{comment.comment}}
+        <br>
+        <form action="/delete/comment/{{comment.id}}" method="GET">
+            <button type="submit">Delete</button></small>
+        </form>
+    <br>
+    {% endfor %}
+</div>
+
+<div id="post_comment">  
+    <form action="add_comment" method="POST">
+        {% csrf_token %}
+        <small><label>Add a comment</label></small>
+        <br>
+        <input type="hidden" name="message_id" value={{message.id}}>
+        <br>
+        <input type="text" name="comment">
+        <br>
+        <button type="submit">Add</button>
+    </form>
+        <br>
+        {% endfor %}
+</div>
+</body>
+</html>

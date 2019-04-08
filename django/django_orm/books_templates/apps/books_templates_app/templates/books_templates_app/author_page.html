@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+            div{
+                padding-left: 50px;
+            }
+        </style>
+    <title>Author Info</title>
+</head>
+<body>
+    {{author.first_name}} {{author.last_name}}
+    <br>
+    ID: {{author.id}}
+    <br>
+    Notes: {{author.notes}}
+    <br><br><br><br><br><br><br>
+    <div>
+    Books:
+    <ul>
+        {%for i in books%}
+        <li>{{i.title}}</li>
+        {%endfor%}
+    </ul>
+    <form action="/addbook_toauthor/{{author.id}}" method="POST">
+        {% csrf_token %}
+    <select name="book">
+        {%for x in all_books%}
+        <option value="{{x.id}}">{{x.title}}</option>
+        {%endfor%}
+    </select>
+    <input type="submit" value="add">
+    </form>
+    </div>
+</body>
+</html>

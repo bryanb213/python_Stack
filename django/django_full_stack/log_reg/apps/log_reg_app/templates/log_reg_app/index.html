@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login & Registration</title>
+    <style>
+        div{
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <div class="reg">
+            <h3>Registraion</h3>
+            {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+        <form action="/register" method="post">
+            {% csrf_token %}
+             First Name: <input type="text" name="fname">
+            <br>
+            Last Name: <input type="text" name="lname">
+            <br>
+            Email: <input type="email" name="email">
+            <br>
+            Password: <input type="password" name="pw">
+            <br>
+            Confirm Password: <input type="password" name="cpw">
+            <br>
+            <input type="submit" value="create">
+        </form>
+    </div>
+    <div class="login">
+        <h3>Login</h3>
+        <form action="/login" method="POST">
+            {% csrf_token %}
+            Email: <input type="email" name="email">
+            <br>
+            Password <input type="password" name="pw">
+            <br>
+            <input type="submit">
+        </form>
+    </div>
+</body>
+</html>

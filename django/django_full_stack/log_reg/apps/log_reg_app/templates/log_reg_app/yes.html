@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Success!</title>
+</head>
+<body>
+    <div>
+        <p>Coding Dojo Wall {{user.first_name}} {{user.last_name}}</p>
+    <a href="/logout">Log out</a>
+    </div>
+    <div>
+        <p>Post a Message</p>
+        <form action="/add_message" method="post">
+        <textarea name="msg" cols="30" rows="10"></textarea>
+        </form>
+    </div>
+</body>
+</html>

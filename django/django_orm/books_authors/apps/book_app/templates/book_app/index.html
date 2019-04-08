@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books/Authors</title>
+</head>
+<body>
+    <h1>Add a Book</h1>
+    <form action="/books">
+        title: <input type="text">
+        <br>
+        <textarea name="desc" cols="30" rows="10"></textarea>    </form>
+        <a href="/books">Add</a>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                {%for i in Book%}
+                <td>{{i.ID}}</td>
+                <td>{{i.title}}</td>
+                <td></td>
+                {%end for%}
+            </tr>
+        </table>
+</body>
+</html>

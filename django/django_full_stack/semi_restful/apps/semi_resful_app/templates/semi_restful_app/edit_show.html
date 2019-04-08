@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        *{
+            margin: 0px auto;
+            vertical-align: top;
+        }
+        .wrapper{
+            width: 980px;
+        }
+    </style>
+    <title>Edit Show</title>
+</head>
+<body>
+    <div class="wrapper">
+        <a href="/shows">Go Back</a>
+        <h1>Edit Show {{shows.id}}</h1>
+        <form action="/shows/{{shows.id}}/update" method="POST">
+            {% csrf_token %}
+            Title <br>
+            <input type="text" name="title" >
+            <br>
+            Network <br>
+            <input type="text" name="network">
+            <br>
+            Release Date <br>
+            <input type="date" name="date">
+            <br>
+            Description <br>
+            <textarea name="desc" cols="30" rows="10"></textarea>
+            <br>
+            <input type="submit" value="update">
+        </form>
+        <a href="/shows">Go Back</a>
+    </div>
+</body>
+</html>
